@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kode Roblox - Sell Platform</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    code {
+      background-color: #f4f4f4;
+      display: block;
+      padding: 15px;
+      border-radius: 6px;
+      white-space: pre-wrap;
+      border: 1px solid #ccc;
+      font-family: Consolas, monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Kode Roblox: Sell Platform</h1>
+
+  <code>
+-- Menyimpan Part Platform ke dalam Variable
+local sellPart = script.Parent
+
+local function sellItems(playerEmas, playerUang)
+    -- Mengalikan Item yang didapat dengan 100 gold
+    local totalSell = playerEmas.Value * 100
+
+    -- Menambahkan Nilai Gold 
+    playerUang.Value = playerUang.Value + totalSell
+
+    -- Reset Nilai Item
+    playerEmas.Value = 0
+end
+
+local function onTouch(partTouched)
+    local character = partTouched.Parent
+    local humanoid = character:FindFirstChildWhichIsA("Humanoid")
+
+    if humanoid then
+        local player = game.Players:GetPlayerFromCharacter(humanoid.Parent)
+        -- Mendapatkan Leaderboard Player
+        local playerStats = player:FindFirstChild("leaderstats")
+        -- Mendapatkan Gold dan Item
+        local playerEmas = playerStats:FindFirstChild("Emas")
+        local playerUang = playerStats:FindFirstChild("Uang")
+
+        -- Cek apakah Player menyentuh SellPlatform
+        print("A player touched sell platform")
+        sellItems(playerEmas, playerUang)
+    end
+end
+
+sellPart.Touched:Connect(onTouch)
+  </code>
+
+</body>
+</html>
